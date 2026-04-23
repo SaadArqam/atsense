@@ -6,18 +6,18 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# ── Backend Configuration ──────────────────────────────────────────────────
+# ── Configuration ──────────────────────────────────────────────────────────
 BACKEND_URL = os.getenv("BACKEND_URL", "https://atsense-4kiz.onrender.com")
 ANALYZE_ENDPOINT = f"{BACKEND_URL}/api/v1/analyze"
 
 # ── Page Config ────────────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="ResuMind AI",
+    page_title="ResuMind AI | Smart Resume Intelligence",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
 
-# ── Custom CSS (Premium Minimalist SaaS Theme) ─────────────────────────────
+# ── Custom CSS (High-Polish SaaS Dashboard) ────────────────────────────────
 st.markdown(
     """
     <style>
@@ -27,341 +27,339 @@ st.markdown(
         font-family: 'Inter', sans-serif;
     }
 
-    /* Base Theme */
+    /* Background and Global Reset */
     .stApp {
-        background-color: #0E1117;
-        color: #E6E6E6;
+        background-color: #0B0F14;
+        color: #E5E7EB;
     }
 
-    /* Hide Streamlit default elements */
     #MainMenu, footer, header { visibility: hidden; }
 
-    /* Typography */
-    h1, h2, h3, h4, h5, h6 {
-        color: #E6E6E6 !important;
-        font-weight: 600 !important;
-        letter-spacing: -0.02em;
+    /* Layout Containers */
+    .block-container {
+        padding-top: 4rem !important;
+        padding-bottom: 5rem !important;
+        max-width: 850px !important;
     }
-    .main-title {
-        font-size: 2.5rem;
+
+    /* Hero Section */
+    .hero-label {
+        color: #10B981;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 0.75rem;
+    }
+    .hero-title {
+        font-size: 2.75rem;
         font-weight: 700;
-        margin-bottom: 0.2rem;
-        color: #E6E6E6;
+        color: #FFFFFF;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
     }
-    .tagline {
-        color: #9CA3AF;
+    .hero-subtitle {
         font-size: 1.1rem;
-        margin-bottom: 2.5rem;
+        color: #9CA3AF;
         font-weight: 400;
+        margin-bottom: 3.5rem;
     }
 
-    /* Cards */
-    .saas-card {
-        background-color: #161A22;
-        border: 1px solid #2D3748;
-        border-radius: 12px;
-        padding: 1.5rem 2rem;
-        margin-bottom: 1.5rem;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    /* Unified Input Card */
+    .unified-card {
+        background-color: #121821;
+        border: 1px solid #1F2937;
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
     }
 
-    /* Buttons */
-    .stButton > button {
-        background-color: #10B981 !important;
-        color: #000000 !important;
-        border: none !important;
-        border-radius: 8px !important;
-        padding: 0.75rem 2rem !important;
-        font-weight: 600 !important;
-        font-size: 1rem !important;
-        width: 100%;
+    /* Section Typography */
+    .section-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: #E5E7EB;
+        margin-bottom: 1.25rem;
+    }
+
+    /* File Uploader Customization */
+    .stFileUploader > label { display: none; }
+    .stFileUploader section {
+        background-color: #0B0F14 !important;
+        border: 1px dashed #1F2937 !important;
+        border-radius: 12px !important;
+        padding: 2rem !important;
         transition: all 0.2s ease;
+    }
+    .stFileUploader section:hover {
+        border-color: #10B981 !important;
+        background-color: rgba(16, 185, 129, 0.02) !important;
+    }
+
+    /* Textarea Customization */
+    .stTextArea > label { display: none; }
+    .stTextArea textarea {
+        background-color: #0B0F14 !important;
+        border: 1px solid #1F2937 !important;
+        border-radius: 12px !important;
+        color: #E5E7EB !important;
+        padding: 1rem !important;
+        font-size: 0.95rem !important;
+        transition: all 0.2s ease;
+    }
+    .stTextArea textarea:focus {
+        border-color: #10B981 !important;
+        box-shadow: 0 0 0 1px #10B981 !important;
+    }
+
+    /* CTA Button */
+    .stButton > button {
+        width: 100%;
+        background-color: #10B981 !important;
+        color: #0B0F14 !important;
+        border: none !important;
+        border-radius: 12px !important;
+        padding: 0.875rem 1.5rem !important;
+        font-weight: 700 !important;
+        font-size: 1rem !important;
+        letter-spacing: 0.01em !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        margin-top: 1rem;
     }
     .stButton > button:hover {
         background-color: #059669 !important;
-        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+    }
+    .stButton > button:active {
+        transform: translateY(0);
     }
     .stButton > button:disabled {
-        background-color: #374151 !important;
-        color: #9CA3AF !important;
+        background-color: #1F2937 !important;
+        color: #4B5563 !important;
         cursor: not-allowed;
     }
 
-    /* Score styling */
-    .score-container {
+    /* Result Components */
+    .result-header {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #FFFFFF;
+        margin: 3rem 0 1.5rem 0;
+    }
+
+    .stat-card {
+        background-color: #121821;
+        border: 1px solid #1F2937;
+        border-radius: 16px;
+        padding: 2rem;
+        height: 100%;
+    }
+
+    .score-display {
         text-align: center;
-        padding: 2rem 0;
     }
     .score-value {
-        font-size: 4.5rem;
-        font-weight: 700;
+        font-size: 4rem;
+        font-weight: 800;
         line-height: 1;
-        margin-bottom: 0.5rem;
+        margin-bottom: 0.75rem;
     }
-    .score-label {
-        font-size: 0.875rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
+    .score-subtext {
+        font-size: 0.75rem;
+        font-weight: 600;
         color: #9CA3AF;
-        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
     }
-    .score-excellent { color: #10B981; }
-    .score-good { color: #F59E0B; }
-    .score-poor { color: #EF4444; }
+    .text-emerald { color: #10B981; }
+    .text-amber { color: #F59E0B; }
+    .text-rose { color: #F43F5E; }
 
-    /* Badges */
-    .badge-container {
+    /* Pill Badges */
+    .pill-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+        gap: 0.6rem;
+        margin-top: 0.75rem;
     }
-    .badge {
-        padding: 0.35rem 0.85rem;
-        border-radius: 6px;
-        font-size: 0.875rem;
-        font-weight: 500;
-        border: 1px solid;
+    .pill {
+        padding: 0.4rem 0.9rem;
+        border-radius: 99px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        border: 1px solid transparent;
     }
-    .badge-match {
-        background-color: rgba(16, 185, 129, 0.1);
+    .pill-match {
+        background-color: rgba(16, 185, 129, 0.08);
         color: #10B981;
         border-color: rgba(16, 185, 129, 0.2);
     }
-    .badge-missing {
-        background-color: rgba(239, 68, 68, 0.1);
-        color: #EF4444;
-        border-color: rgba(239, 68, 68, 0.2);
-    }
-    .badge-empty {
-        background-color: rgba(156, 163, 175, 0.1);
-        color: #9CA3AF;
-        border-color: rgba(156, 163, 175, 0.2);
+    .pill-gap {
+        background-color: rgba(244, 63, 94, 0.08);
+        color: #F43F5E;
+        border-color: rgba(244, 63, 94, 0.2);
     }
 
-    /* List items */
-    .suggestion-item {
-        padding: 1rem;
-        border-bottom: 1px solid #2D3748;
-        color: #E6E6E6;
-        font-size: 0.95rem;
-        line-height: 1.5;
+    /* Recommendation List */
+    .rec-item {
+        padding: 1.25rem 0;
+        border-bottom: 1px solid #1F2937;
+        color: #E5E7EB;
+        font-size: 0.925rem;
+        line-height: 1.6;
+        display: flex;
+        gap: 1rem;
     }
-    .suggestion-item:last-child {
-        border-bottom: none;
-    }
-
-    /* Expanders */
-    .streamlit-expanderHeader {
-        background-color: #161A22 !important;
-        border-radius: 8px;
-        color: #E6E6E6 !important;
-        font-weight: 500 !important;
-    }
-    .streamlit-expanderContent {
-        background-color: #0E1117;
-        border: 1px solid #2D3748;
-        border-top: none;
-        border-bottom-left-radius: 8px;
-        border-bottom-right-radius: 8px;
-        color: #9CA3AF;
-        padding: 1rem !important;
+    .rec-item:last-child { border-bottom: none; }
+    .rec-bullet {
+        color: #10B981;
+        font-weight: 800;
     }
 
-    /* Input Fields */
-    .stTextArea > div > div > textarea {
-        background-color: #0E1117;
-        border: 1px solid #2D3748;
-        color: #E6E6E6;
-        border-radius: 8px;
-    }
-    .stTextArea > div > div > textarea:focus {
-        border-color: #10B981;
-        box-shadow: 0 0 0 1px #10B981;
-    }
-    .stFileUploader > div > div {
-        background-color: #0E1117;
-        border: 1px dashed #2D3748;
-        border-radius: 8px;
-    }
-    
-    /* Error Message Customization */
+    /* Custom Alert */
     .stAlert {
-        background-color: rgba(239, 68, 68, 0.1) !important;
-        color: #EF4444 !important;
-        border: 1px solid rgba(239, 68, 68, 0.2) !important;
-        border-radius: 8px !important;
+        background-color: rgba(244, 63, 94, 0.05) !important;
+        color: #F43F5E !important;
+        border: 1px solid rgba(244, 63, 94, 0.2) !important;
+        border-radius: 12px !important;
     }
     </style>
     """,
     unsafe_allow_html=True,
 )
 
-# ── UI Components ──────────────────────────────────────────────────────────
+# ── Component Functions ────────────────────────────────────────────────────
 
-def render_card_start():
-    st.markdown('<div class="saas-card">', unsafe_allow_html=True)
+def render_score(score: float):
+    color_class = "text-emerald" if score >= 75 else "text-amber" if score >= 50 else "text-rose"
+    st.markdown(
+        f"""
+        <div class="stat-card">
+            <div class="score-display">
+                <div class="score-value {color_class}">{score:.0f}</div>
+                <div class="score-subtext">ATS Compatibility Score</div>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
 
-def render_card_end():
-    st.markdown('</div>', unsafe_allow_html=True)
-
-def render_badges(items: list[str], badge_type: str):
+def render_pills(items: list[str], mode: str):
+    pill_class = "pill-match" if mode == "match" else "pill-gap"
     if not items:
-        st.markdown(f'<div class="badge-container"><span class="badge badge-empty">None identified</span></div>', unsafe_allow_html=True)
+        st.markdown('<div class="pill-container"><span style="color:#6B7280; font-size:0.875rem;">None identified</span></div>', unsafe_allow_html=True)
         return
-        
-    badges_html = "".join([f'<span class="badge badge-{badge_type}">{item}</span>' for item in items])
-    st.markdown(f'<div class="badge-container">{badges_html}</div>', unsafe_allow_html=True)
+    
+    pills_html = "".join([f'<span class="pill {pill_class}">{item}</span>' for item in items])
+    st.markdown(f'<div class="pill-container">{pills_html}</div>', unsafe_allow_html=True)
 
-def get_score_class(score: float) -> str:
-    if score >= 75: return "score-excellent"
-    if score >= 50: return "score-good"
-    return "score-poor"
+# ── API Logic ──────────────────────────────────────────────────────────────
 
-# ── API Interaction ────────────────────────────────────────────────────────
-
-def analyze_resume_api(resume_bytes: bytes, filename: str, job_description: str) -> dict:
+def call_analysis(resume_bytes, filename, job_desc):
     files = {"resume": (filename, resume_bytes, "application/pdf")}
-    data = {"job_description": job_description}
-    response = requests.post(ANALYZE_ENDPOINT, files=files, data=data, timeout=120)
-    response.raise_for_status()
-    return response.json()
+    data = {"job_description": job_desc}
+    resp = requests.post(ANALYZE_ENDPOINT, files=files, data=data, timeout=120)
+    resp.raise_for_status()
+    return resp.json()
 
-# ── Main Application ───────────────────────────────────────────────────────
+# ── Main UI ────────────────────────────────────────────────────────────────
 
 def main():
-    # Header
-    st.markdown('<div class="main-title">ResuMind AI</div>', unsafe_allow_html=True)
-    st.markdown('<div class="tagline">Intelligent resume analysis and ATS scoring.</div>', unsafe_allow_html=True)
-    
-    st.markdown('<hr style="border-color: #2D3748; margin-bottom: 2rem;">', unsafe_allow_html=True)
+    # Hero Section
+    st.markdown('<div class="hero-label">AI Resume Intelligence</div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-title">ResuMind AI</div>', unsafe_allow_html=True)
+    st.markdown('<div class="hero-subtitle">Optimize your professional profile for modern recruitment systems.</div>', unsafe_allow_html=True)
+    st.markdown('<hr style="border-color: #1F2937; margin-bottom: 4rem;">', unsafe_allow_html=True)
 
-    # State management
-    if "analysis_result" not in st.session_state:
-        st.session_state.analysis_result = None
-    if "is_analyzing" not in st.session_state:
-        st.session_state.is_analyzing = False
+    # State
+    if "result" not in st.session_state:
+        st.session_state.result = None
+    if "loading" not in st.session_state:
+        st.session_state.loading = False
 
-    # Input Section
-    render_card_start()
+    # Unified Input Card
+    st.markdown('<div class="unified-card">', unsafe_allow_html=True)
     
     col1, col2 = st.columns(2, gap="large")
-    
     with col1:
-        st.markdown("<h4 style='margin-bottom: 1rem;'>Document Upload</h4>", unsafe_allow_html=True)
-        uploaded_file = st.file_uploader(
-            "Resume (PDF)", 
-            type=["pdf"], 
-            label_visibility="collapsed"
-        )
-
-    with col2:
-        st.markdown("<h4 style='margin-bottom: 1rem;'>Job Description</h4>", unsafe_allow_html=True)
-        job_description = st.text_area(
-            "Job Description",
-            height=150,
-            placeholder="Paste the target job description here...",
-            label_visibility="collapsed"
-        )
+        st.markdown('<div class="section-label">Resume Document</div>', unsafe_allow_html=True)
+        uploaded_file = st.file_uploader("Upload PDF", type=["pdf"], label_visibility="collapsed")
         
-    st.markdown("<br>", unsafe_allow_html=True)
+    with col2:
+        st.markdown('<div class="section-label">Target Job Description</div>', unsafe_allow_html=True)
+        job_desc = st.text_area("Paste JD", height=140, placeholder="Paste requirements here...", label_visibility="collapsed")
     
-    # CTA Button
-    if st.button("Analyze Resume", disabled=st.session_state.is_analyzing):
+    st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
+    
+    if st.button("Analyze Resume", disabled=st.session_state.loading):
         if not uploaded_file:
-            st.error("Please upload a PDF resume document.")
-        elif len(job_description.strip()) < 50:
-            st.error("Please provide a more detailed job description (minimum 50 characters).")
+            st.error("Document upload required")
+        elif len(job_desc.strip()) < 50:
+            st.error("Provide a detailed job description")
         else:
-            st.session_state.is_analyzing = True
+            st.session_state.loading = True
             st.rerun()
+            
+    st.markdown('</div>', unsafe_allow_html=True)
 
-    render_card_end()
-
-    # Processing State
-    if st.session_state.is_analyzing:
-        with st.spinner("Analyzing document metrics..."):
+    # Execution
+    if st.session_state.loading:
+        with st.spinner("Processing analysis..."):
             try:
-                resume_bytes = uploaded_file.getvalue()
-                result = analyze_resume_api(resume_bytes, uploaded_file.name, job_description)
-                st.session_state.analysis_result = result
-            except requests.exceptions.ConnectionError:
-                st.error("Unable to connect to the analysis engine. Please ensure the backend service is running.")
-            except requests.exceptions.HTTPError as e:
-                try:
-                    err_msg = e.response.json().get("detail", str(e))
-                except:
-                    err_msg = str(e)
-                st.error(f"Analysis failed: {err_msg}")
+                bytes_data = uploaded_file.getvalue()
+                res = call_analysis(bytes_data, uploaded_file.name, job_desc)
+                st.session_state.result = res
             except Exception as e:
-                st.error("An unexpected error occurred during analysis.")
+                st.error(f"Analysis system offline: {str(e)}")
             finally:
-                st.session_state.is_analyzing = False
+                st.session_state.loading = False
                 st.rerun()
 
-    # Results Dashboard
-    result = st.session_state.analysis_result
-    if result and not st.session_state.is_analyzing:
-        st.markdown("<h3 style='margin-bottom: 1.5rem; margin-top: 2rem;'>Analysis Dashboard</h3>", unsafe_allow_html=True)
+    # Results Section
+    if st.session_state.result and not st.session_state.loading:
+        data = st.session_state.result
+        st.markdown('<div class="result-header">Analysis Result</div>', unsafe_allow_html=True)
         
         # Row 1: Score & Skills
-        col_score, col_skills = st.columns([1, 2], gap="large")
+        r1_col1, r1_col2 = st.columns([1, 1.5], gap="medium")
         
-        with col_score:
-            render_card_start()
-            score = result.get("score", 0)
-            score_class = get_score_class(score)
-            st.markdown(
-                f"""
-                <div class="score-container">
-                    <div class="score-value {score_class}">{score:.0f}</div>
-                    <div class="score-label">Match Score</div>
-                </div>
-                """, 
-                unsafe_allow_html=True
-            )
-            render_card_end()
+        with r1_col1:
+            render_score(data.get("score", 0))
             
-        with col_skills:
-            render_card_start()
-            st.markdown("<h4 style='margin-bottom: 1rem;'>Skill Assessment</h4>", unsafe_allow_html=True)
+        with r1_col2:
+            st.markdown('<div class="stat-card">', unsafe_allow_html=True)
+            st.markdown('<div class="section-label" style="margin-bottom:0.75rem;">Skill Matching</div>', unsafe_allow_html=True)
             
-            st.markdown("<div style='color: #9CA3AF; font-size: 0.875rem; margin-bottom: 0.25rem;'>Identified Matches</div>", unsafe_allow_html=True)
-            render_badges(result.get("matched_skills", []), "match")
+            st.markdown('<div style="color:#9CA3AF; font-size:0.75rem; font-weight:600; text-transform:uppercase; margin-top:1rem;">Matched Keywords</div>', unsafe_allow_html=True)
+            render_pills(data.get("matched_skills", []), "match")
             
-            st.markdown("<div style='color: #9CA3AF; font-size: 0.875rem; margin-top: 1.25rem; margin-bottom: 0.25rem;'>Identified Gaps</div>", unsafe_allow_html=True)
-            render_badges(result.get("missing_skills", []), "missing")
-            render_card_end()
+            st.markdown('<div style="color:#9CA3AF; font-size:0.75rem; font-weight:600; text-transform:uppercase; margin-top:1.5rem;">Identified Gaps</div>', unsafe_allow_html=True)
+            render_pills(data.get("missing_skills", []), "gap")
+            st.markdown('</div>', unsafe_allow_html=True)
 
-        # Row 2: Suggestions & Section Feedback
-        render_card_start()
-        st.markdown("<h4 style='margin-bottom: 1rem;'>Actionable Recommendations</h4>", unsafe_allow_html=True)
+        # Row 2: Recommendations
+        st.markdown("<div style='height: 1.5rem;'></div>", unsafe_allow_html=True)
+        st.markdown('<div class="unified-card" style="padding: 2rem 2.5rem;">', unsafe_allow_html=True)
+        st.markdown('<div class="section-label">Critical Recommendations</div>', unsafe_allow_html=True)
         
-        suggestions = result.get("suggestions", [])
-        if suggestions:
-            for item in suggestions:
-                st.markdown(f'<div class="suggestion-item">{item}</div>', unsafe_allow_html=True)
+        recs = data.get("suggestions", [])
+        if recs:
+            for r in recs:
+                st.markdown(f'<div class="rec-item"><span class="rec-bullet">•</span>{r}</div>', unsafe_allow_html=True)
         else:
-            st.markdown('<div class="suggestion-item" style="color: #9CA3AF;">No critical recommendations identified.</div>', unsafe_allow_html=True)
-        render_card_end()
+            st.markdown('<div class="rec-item">No urgent recommendations identified.</div>', unsafe_allow_html=True)
+        st.markdown('</div>', unsafe_allow_html=True)
 
-        # Row 3: Section Analysis
-        section_fb = result.get("section_feedback", {})
-        if any(v for v in section_fb.values() if v and v.lower() not in ('null', 'none', '')):
-            st.markdown("<h4 style='margin-bottom: 1rem; margin-top: 1.5rem;'>Section Analysis</h4>", unsafe_allow_html=True)
-            
-            sections_to_display = [
-                ("Experience", section_fb.get("experience")),
-                ("Projects", section_fb.get("projects")),
-                ("Skills", section_fb.get("skills")),
-                ("Summary", section_fb.get("summary")),
-                ("Education", section_fb.get("education"))
-            ]
-            
-            for title, feedback in sections_to_display:
-                if feedback and feedback.lower() not in ('null', 'none', ''):
-                    with st.expander(title):
-                        st.markdown(f"<div style='color: #E6E6E6; font-size: 0.95rem; line-height: 1.6;'>{feedback}</div>", unsafe_allow_html=True)
+        # Row 3: Sectional Analysis
+        sec_data = data.get("section_feedback", {})
+        if any(sec_data.values()):
+            st.markdown('<div class="section-label" style="margin: 2rem 0 1rem 0;">Detailed Breakdown</div>', unsafe_allow_html=True)
+            for name, content in sec_data.items():
+                if content and content.lower() not in ("null", "none"):
+                    with st.expander(name.capitalize()):
+                        st.markdown(f"<div style='color:#9CA3AF; line-height:1.6;'>{content}</div>", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     main()
