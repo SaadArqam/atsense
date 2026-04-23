@@ -1,0 +1,32 @@
+# ── Core web framework ─────────────────────────────────────────────────────
+fastapi==0.115.5
+uvicorn[standard]==0.32.1
+python-multipart==0.0.12          # required for FastAPI file/form uploads
+
+# ── Data validation ────────────────────────────────────────────────────────
+pydantic==2.10.3
+
+# ── PDF parsing ────────────────────────────────────────────────────────────
+PyMuPDF==1.24.14                  # fitz — fast, accurate PDF text extraction
+
+# ── Embeddings (local, no API key needed) ─────────────────────────────────
+sentence-transformers==3.3.1      # all-MiniLM-L6-v2 ships with this package
+torch                             # latest compatible wheel; CPU-only fine (no CUDA suffix needed)
+
+# ── Vector search ──────────────────────────────────────────────────────────
+faiss-cpu                         # swap to faiss-gpu if CUDA available
+
+# ── LLM client ────────────────────────────────────────────────────────────
+groq==0.12.0                      # official Groq Python client
+
+# ── Environment management ─────────────────────────────────────────────────
+python-dotenv==1.0.1
+
+# ── Frontend ───────────────────────────────────────────────────────────────
+streamlit==1.40.2
+
+# ── HTTP client (used by Streamlit to call the backend) ───────────────────
+requests==2.32.3
+
+# ── Numerical computing ────────────────────────────────────────────────────
+numpy                             # latest compatible wheel
