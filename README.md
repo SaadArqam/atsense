@@ -1,4 +1,4 @@
-# 🎯 AI Resume Analyzer + ATS Scorer
+# 🎯 ATSENSE | AI Resume Analyzer + ATS Scorer
 
 A production-quality resume analysis system that combines semantic embeddings, FAISS vector search, and Groq LLM to give ATS scores, skill gap analysis, and actionable improvement suggestions.
 
@@ -7,7 +7,7 @@ A production-quality resume analysis system that combines semantic embeddings, F
 ## 🏗️ Architecture
 
 ```
-Resume Analyzer/
+ATSENSE/
 ├── backend/
 │   ├── app.py                  # FastAPI entry point
 │   ├── routes/

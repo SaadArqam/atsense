@@ -11,7 +11,7 @@ ANALYZE_ENDPOINT = f"{BACKEND_URL}/api/v1/analyze"
 
 # ── Page Configuration ─────────────────────────────────────────────────────
 st.set_page_config(
-    page_title="ResuMind AI",
+    page_title="ATSENSE",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
@@ -253,7 +253,7 @@ def main():
         """
         <div class="hero-container">
             <div class="hero-label">AI Resume Intelligence</div>
-            <div class="hero-title">ResuMind AI</div>
+            <div class="hero-title">ATSENSE</div>
             <div class="hero-subtitle">Optimize your professional narrative for modern algorithmic screening.</div>
         </div>
         <hr style="border: 0; border-top: 1px solid #1F2937; margin-bottom: 4rem;">
