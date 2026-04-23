@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # ── Backend URL ────────────────────────────────────────────────────────────
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+BACKEND_URL = os.getenv("BACKEND_URL", "https://atsense-4kiz.onrender.com")
 ANALYZE_ENDPOINT = f"{BACKEND_URL}/api/v1/analyze"
 
 # ── Page Config ────────────────────────────────────────────────────────────
