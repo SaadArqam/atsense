@@ -19,6 +19,7 @@ faiss-cpu==1.7.4
 
 # ── LLM client ────────────────────────────────
 groq==0.12.0
+httpx==0.27.2                     # Fix for 'proxies' TypeError in groq
 
 # ── Environment ───────────────────────────────
 python-dotenv==1.0.1
